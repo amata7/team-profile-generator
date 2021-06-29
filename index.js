@@ -1,97 +1,48 @@
-const inquirer = require('inquirer');
-const fs = require('fs');
-const Employee = require('./lib/employee');
-const Engineer = require('./lib/engineer');
-const Intern = require('./lib/intern');
-const Manager = require('./lib/manager');
+const inquirer = require("inquirer");
+const fs = require("fs");
+const Employee = require("./lib/employee");
+const Engineer = require("./lib/engineer");
+const Intern = require("./lib/intern");
+const Manager = require("./lib/manager");
 
-
-
-let init = function() {
-inquirer
-    .prompt ([
-        {
-            type: 'input',
-            message: '[Manager] What is your name?',
-            name: 'nameMng',
-        },
-        {
-            type: 'input',
-            message: '[Manager] What is your employee ID?',
-            name: 'idMng',
-        },
-        {
-            type: 'input',
-            message: '[Manager] What is your email adress?',
-            name: 'emailMng',
-        },
-        {
-            type: 'input',
-            message: '[Manager] What is your office number?',
-            name: 'officeNum',
-        },
-        {
-            type: 'confirm',
-            message: 'Do you want to add another person to your team?',
-            name: 'addEmployee1',
-        },
-        {
-            type: 'input',
-            message: '[Engineer] What is your name?',
-            name: 'nameEng',
-        },
-        {
-            type: 'input',
-            message: '[Engineer] What is your employee ID?',
-            name: 'idEng',
-        },
-        {
-            type: 'input',
-            message: '[Engineer] What is your email adress?',
-            name: 'emailEng',
-        },
-        {
-            type: 'input',
-            message: '[Engineer] What is your GitHub username?',
-            name: 'github',
-        },
-        {
-            type: 'confirm',
-            message: 'Do you want to add another person to your team?',
-            name: 'addEmployee2',
-        },
-        {
-            type: 'input',
-            message: '[Intern] What is your name?',
-            name: 'nameInt',
-        },
-        {
-            type: 'input',
-            message: '[Intern] What is your employee ID?',
-            name: 'idInt',
-        },
-        {
-            type: 'input',
-            message: '[Intern] What is your email adress?',
-            name: 'emailInt',
-        },
-        {
-            type: 'input',
-            message: '[Intern] Where do you currently go to school?',
-            name: 'school',
-        },
+let init = function () {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "[Manager] What is your name?",
+        name: "managerName",
+      },
+      {
+        type: "input",
+        message: "[Manager] What is your employee ID?",
+        name: "managerId",
+      },
+      {
+        type: "input",
+        message: "[Manager] What is your email address?",
+        name: "managerEmail",
+      },
+      {
+        type: "input",
+        message: "[Manager] What is your office number?",
+        name: "officeNum",
+      },
     ])
     .then((answers) => {
-        endPrompt(answers);
+      const empName = answers.managerName;
+      const id = answers.managerId;
+      const email = answers.managerEmail;
+      const officeNum = answers.officeNum;
+      const theMan = new Manager(empName, id, email, officeNum);
+      console.log(theMan);
+      endPrompt(answers);
+    });
+};
 
-    })
-    
-}
-
-
-let endPrompt = function(answers) {
-    const filename = './dist/index.html'
-    const html = `<!DOCTYPE html>
+let endPrompt = function (answers) {
+  const filename = "./dist/index.html";
+  const html = `<!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -150,9 +101,9 @@ let endPrompt = function(answers) {
     </body>
     </html>`;
 
-    fs.writeFile(filename, html, (err) =>
-    err ? console.error(err) : console.log('Success!')
-    );
-}
+  fs.writeFile(filename, html, (err) =>
+    err ? console.error(err) : console.log("Success!")
+  );
+};
 
 init();
