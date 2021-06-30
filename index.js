@@ -1,11 +1,10 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
-const Employee = require("./lib/employee");
 const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
 const Manager = require("./lib/manager");
 
-let init = function () {
+let managerPrompt = function () {
   inquirer
     .prompt([
       {
@@ -35,8 +34,72 @@ let init = function () {
       const email = answers.managerEmail;
       const officeNum = answers.officeNum;
       const theMan = new Manager(empName, id, email, officeNum);
-      console.log(theMan);
-      endPrompt(answers);
+    });
+};
+
+let engineerPrompt = function () {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "[Engineer] What is your name?",
+        name: "engineerName",
+      },
+      {
+        type: "input",
+        message: "[Engineer] What is your employee ID?",
+        name: "engineerId",
+      },
+      {
+        type: "input",
+        message: "[Engineer] What is your email address?",
+        name: "engineerEmail",
+      },
+      {
+        type: "input",
+        message: "[Engineer] What is your GitHub username?",
+        name: "github",
+      },
+    ])
+    .then((answers) => {
+      const empName = answers.engineerName;
+      const id = answers.engineerId;
+      const email = answers.engineerEmail;
+      const github = answers.github;
+      const theEng = new Engineer(empName, id, email, github);
+    });
+};
+
+let internPrompt = function () {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "[Intern] What is your name?",
+        name: "internName",
+      },
+      {
+        type: "input",
+        message: "[Intern] What is your employee ID?",
+        name: "internId",
+      },
+      {
+        type: "input",
+        message: "[Intern] What is your email address?",
+        name: "internEmail",
+      },
+      {
+        type: "input",
+        message: "[Intern] What is the name of your school?",
+        name: "school",
+      },
+    ])
+    .then((answers) => {
+      const empName = answers.internName;
+      const id = answers.internId;
+      const email = answers.internEmail;
+      const school = answers.school;
+      const theInt = new Intern(empName, id, email, school);
     });
 };
 
